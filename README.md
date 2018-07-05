@@ -9,8 +9,7 @@
 
 ## 構築
 
-下記のコマンドでvmを3台構築します．
-ディストリビューションはすべてCentOS7となります．
+下記のコマンドでvmを3台構築します．ディストリビューションはすべてCentOS7となります．
 
 ```
 $ vagrant up app
@@ -21,43 +20,41 @@ $ vagrant up redis
 ### app
 
 1. 共通設定
-	- ssh時のrootでのパスワード認証の禁止
+	- rootユーザでのパスワード認証によるログインを拒否
 	- vimとwgetがインストール済み
 	- firewalldが起動している
 1. mysql
-	- mysql5.7のクライアントがinstall済み
+	- mysql8.0のクライアントがinstall済み
 1. webサーバ
-	- nginxのversion1.11がinstall済み
+	- nginxのversion1.15が起動している
 	- nginx.serviceがsystemdで起動している
-	- nginx.serviceがホストの再起動時に自動で立ち上がる
+	- nginx.serviceがホストの起動時に立ち上がる
 	- すべてのhttpへのアクセスが301を返してhttpsにリダイレクトする
 	- nginxのstub_statusが`localhost/nginx_status`で見れる
-	- `localhost/nginx_status`以外のアクセスは空のgifを返す
+	- `localhost/heartbeat`へのリクエストに空gifのレスポンスを返す
+		- `access_log`への書き込みはしないようにする
 
 ### mysql
 
 1. 共通設定
-	- ssh時のrootでのパスワード認証の禁止
+	- rootユーザでのパスワード認証によるログインを拒否
 	- vimとwgetがインストール済み
 	- firewalldが起動している
 1. mysql
-	- mysql-community-commonのversion5.7がinstall済み
-	- mysql-community-clientのversion5.7がinstall済み
-	- mysql-community-serverのversion5.7がinstall済み
+	- mysqlのversion8系が起動している
 	- mysqld.serviceがsystemdで起動している
-	- mysqld.serviceがホストの再起動時に自動で立ち上がる
+	- mysqld.serviceがホストの起動時に立ち上がる
 
 ### redis
 
 1. 共通設定
-	- ssh時のrootでのパスワード認証の禁止
+	- rootユーザでのパスワード認証によるログインを拒否
 	- vimとwgetがインストール済み
 	- firewalldが起動している
 1. redis
+	- redisのversion4系が起動している
 	- redis.serviceがsystemdで起動している
-	- redis.serviceがホストの再起動時に自動で立ち上がる
-	- redis-cliのコマンドへパスが通っていて，versionが3.2系
-	- redis-serverのコマンドへパスが通っていて，versionが3.2系
+	- redis.serviceがホストの起動時に立ち上がる
 
 ## テストの実行
 

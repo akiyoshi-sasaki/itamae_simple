@@ -16,6 +16,6 @@ describe command('curl -kL http://localhost -o /dev/null -w "%{http_code}\n" -s'
   its(:stdout) { should match /^200$/ }
 end
 
-describe command('curl -kL http://localhost/hoge') do
+describe command('curl -kL http://localhost/heartbeat') do
   its(:stdout) { should match /^GIF/ }
 end
