@@ -2,9 +2,10 @@
 # vi: set ft=ruby :
 
 require "yaml"
-conf = YAML.load_file("config.yml")
+conf = YAML.load_file(File.join(__dir__, "config.yml"))
 
 Vagrant.configure("2") do |config|
+	config.vbguest.auto_update = false
 	config.ssh.insert_key = false
 
 	conf.each do |role, confs|
@@ -16,36 +17,19 @@ Vagrant.configure("2") do |config|
 				end
 				role.vm.hostname = host["hostname"]
 
-				if confs.has_key?("syncs") then
-					confs["syncs"].each do |sync|
-						role.vm.synced_folder sync["host"], sync["guest"],
-							owner: sync.has_key?("owner") ? sync["owner"] : "vagrant",
-							group: sync.has_key?("group") ? sync["group"] : "vagrant",
-							mount_options: [
-								"dmode=%s,fmode=%s" % [
-									sync.has_key?("dmode") ? sync["dmode"] : "755",
-									sync.has_key?("fmode") ? sync["fmode"] : "755"
-								]
-							]
+				if confs.has_key?("volumes") then
+					confs["volumes"].each do |volume|
+						v = volume.split(":")
+						role.vm.synced_folder v.shift, v.shift,
+						mount_options: ["dmode=%s,fmode=%s" % ["777","777"]]
 					end
 				end
 
-				if confs.has_key?("provision") then
-					confs["provision"].each do |script|
+				if confs.has_key?("provisions") then
+					confs["provisions"].each do |script|
 						role.vm.provision :shell do |shell|
-							shell.path = script
-							shell.privileged = true
-						end
-					end
-				end
-
-				if confs.has_key?("itamae") then
-					confs["itamae"].each do |itamae|
-						role.vm.provision :shell do |shell|
-							shell.inline = <<-SHELL
-cd /tmp
-PASSWORD=#{ENV['PASSWORD']} bundle exec itamae local -j #{itamae["json"]} #{itamae["recipe"]}
-							SHELL
+							shell.env = confs["environment"] if confs.has_key?("environment")
+							shell.inline = script
 						end
 					end
 				end
