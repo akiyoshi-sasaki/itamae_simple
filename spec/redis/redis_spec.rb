@@ -10,9 +10,9 @@ describe port(6379) do
 end
 
 describe command('redis-cli -v') do
-	its(:stdout) { should match /3\.2\.\d+/ }
+	its(:stdout) { should match /4\.\d+\.\d+/ }
 end
 
 describe command('redis-server -v') do
-	its(:stdout) { should match /3\.2\.\d+/ }
+	its(:stdout) { should match /4\.\d+\.\d+/ }
 end

@@ -10,7 +10,7 @@ describe port(3306) do
 end
 
 describe command("mysql --version") do
-	its(:stdout) { should match /5\.7\.\d+/ }
+	its(:stdout) { should match /8\.0\.\d+/ }
 end
 
 describe file('/etc/my.cnf') do
