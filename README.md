@@ -25,6 +25,7 @@ $ vagrant up redis
 	- firewalldが起動している
 1. mysql
 	- mysql8.0のクライアントがinstall済み
+	- mysqlのVMで動いているmysql-serverにport番号3306で接続できる
 1. webサーバ
 	- nginxのversion1.15が起動している
 	- nginx.serviceがsystemdで起動している
