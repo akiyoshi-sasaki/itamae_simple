@@ -1,5 +1,5 @@
 require "spec_helper"
 
-describe command('curl -L 10.10.10.200:3306') do
-	its(:exit_status) { should eq 0 }
+describe command('curl -IL 10.10.10.200:3306') do
+	its(:stdout) { should match /^8\.\d+\.\d+$/ }
 end
