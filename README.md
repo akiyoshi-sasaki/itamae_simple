@@ -26,6 +26,8 @@ $ vagrant up redis
 1. mysql
 	- mysql8.0のクライアントがinstall済み
 	- mysqlのVMで動いているmysql-serverにport番号3306で接続できる
+1. redis
+	- redisのVMで動いているredis-serverにport番号6379で接続できる
 1. webサーバ
 	- nginxのversion1.15が起動している
 	- nginx.serviceがsystemdで起動している
@@ -45,6 +47,7 @@ $ vagrant up redis
 	- mysqlのversion8系が起動している
 	- mysqld.serviceがsystemdで起動している
 	- mysqld.serviceがホストの起動時に立ち上がる
+	- mysql-serverへのアクセスがport番号3306で行える
 
 ### redis
 
@@ -56,6 +59,7 @@ $ vagrant up redis
 	- redisのversion4系が起動している
 	- redis.serviceがsystemdで起動している
 	- redis.serviceがホストの起動時に立ち上がる
+	- redis-serverへのアクセスがport番号6379で行える
 
 ## テストの実行
 
