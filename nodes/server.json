@@ -1,0 +1,9 @@
+{
+  "mysql": {
+    "url": "https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm"
+  },
+  "app": {
+    "user": "vagrant",
+    "ip-address": "10.10.10.10"
+  }  
+}  
