@@ -13,12 +13,6 @@ service 'mysqld' do
 end
 
 #firewalldの設定
-execute 'firewalld http' do
-  command 'sudo firewall-cmd --add-service=http --permanent'
-end
-execute 'firewalld https' do
-  command 'sudo firewall-cmd --add-service=https --permanent'
-end
 execute 'firewalld mysql' do
   command 'sudo firewall-cmd --add-service=mysql --zone=public --permanent'
 end
