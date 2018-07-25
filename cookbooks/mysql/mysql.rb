@@ -24,11 +24,12 @@ execute 'firewalld reload' do
 end
 
 # デフォルトパスワードの取得
-DEFAULT_MYSQL_PASSWORD = run_command("cat /var/log/mysqld.log | grep pass | cut -d ' ' -f 13 | tr -d '\n'")
+result = run_command("cat /var/log/mysqld.log | grep password | cut -d ' ' -f 13 | tr -d '\n'")
+change_mysql_password_command = 'mysqladmin password Password_0 -u root -p"' + result.stdout + '"'
 
 # 初期パスワードの変更
 execute 'change mysql password' do
-  command 'mysqladmin password Password_0 -u root -p"#{DEFAULT_MYSQL_PASSWORD}"'
+  command change_mysql_password_command
   not_if  'mysql -u root -pPassword_0 -e "SHOW databases;"'
 end
 
