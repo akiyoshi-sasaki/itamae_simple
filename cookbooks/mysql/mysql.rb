@@ -1,8 +1,11 @@
 # mysql8インストール
 package node['mysql']['url'] do
-  not_if 'sudo yum repolist enabled | grep "mysql.*-community.*"'
+  not_if 'sudo yum repolist enabled | grep "mysql8.*-community.*"'
 end
-package 'mysql-community-server'
+
+package 'mysql-community-server' do
+  not_if 'mysql --version'
+end
 
 # mysql自動起動の設定
 service 'mysqld' do
