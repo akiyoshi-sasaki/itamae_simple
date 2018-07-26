@@ -16,6 +16,7 @@ end
 execute 'firewalld mysql' do
   command 'sudo firewall-cmd --add-service=mysql --zone=public --permanent'
 end
+
 execute 'firewalld reload' do
   command 'firewall-cmd --reload'
 end
@@ -38,10 +39,12 @@ execute 'create mysql user' do
   command 'mysql -u root -pPassword_0 -e "CREATE USER vagrant@10.10.10.10 IDENTIFIED BY \'Password_0\';"'
   not_if  'mysql -u root -pPassword_0 -e "SELECT user FROM mysql.user WHERE user = \'vagrant\';" | grep vagrant'
 end
+
 execute 'grant all' do
   command 'mysql -u root -pPassword_0 -e "GRANT ALL ON *.* TO vagrant@10.10.10.10;"'
   not_if  'mysql -u root -pPassword_0 -e "SHOW GRANTS FOR vagrant@10.10.10.10;" | grep CREATE'
 end
+
 execute 'flush privileges' do
   command 'mysql -u root -pPassword_0 -e "FLUSH PRIVILEGES;"'
 end

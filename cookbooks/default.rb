@@ -9,6 +9,7 @@ template 'sshd_config' do
   source '../templates/sshd_config'
   mode   '600'
 end
+
 execute 'restart sshd' do
   command 'sudo service sshd restart'
 end
