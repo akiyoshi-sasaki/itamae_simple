@@ -4,10 +4,12 @@ execute 'backup sshd_config' do
 end
 
 # rootログインの禁止
-template 'sshd_config' do
-  path   '/etc/ssh/sshd_config'
-  source '../templates/sshd_config'
-  mode   '600'
+file "/etc/ssh/sshd_config" do
+  action :edit
+  block do |content|
+    content.gsub!(/^#?PermitRootLogin.+$/, %q(PermitRootLogin without-password))
+    content.gsub!(/^#?PasswordAuthentication.+$/, %q(PasswordAuthentication yes))
+  end
 end
 
 execute 'restart sshd' do

@@ -17,7 +17,6 @@ mysql:
     - cookbooks:/tmp/cookbooks
     - roles:/tmp/roles
     - nodes:/tmp/nodes
-    - templates:/tmp/templates
     - provision:/tmp/provision
 redis:
   box: "centos/7"
