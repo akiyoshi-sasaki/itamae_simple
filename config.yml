@@ -11,6 +11,14 @@ mysql:
     - hostname: "mysql-01"
       lips:
         - "10.10.10.200"
+  provisions:
+    - "/tmp/provision/mysql_provision.sh"
+  volumes:
+    - cookbooks:/tmp/cookbooks
+    - roles:/tmp/roles
+    - nodes:/tmp/nodes
+    - templates:/tmp/templates
+    - provision:/tmp/provision
 redis:
   box: "centos/7"
   hosts:

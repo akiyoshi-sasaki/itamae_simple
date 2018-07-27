@@ -23,7 +23,7 @@ end
 
 # デフォルトパスワードの取得
 result = run_command("cat /var/log/mysqld.log | grep password | cut -d ' ' -f 13 | tr -d '\n'")
-change_mysql_password_command = 'mysqladmin password Password_0 -u root -p"' + result.stdout + '"'
+change_mysql_password_command = "mysqladmin password Password_0 -u root -p'" + result.stdout + "'"
 
 # 初期パスワードの変更
 execute 'change mysql password' do
