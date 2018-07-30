@@ -21,13 +21,12 @@ execute "firewalld reload" do
   command "firewall-cmd --reload"
 end
 
-# デフォルトパスワードの取得
-result = run_command("cat /var/log/mysqld.log | grep password | cut -d ' ' -f 13 | tr -d '\n'")
-change_mysql_password_command = "mysqladmin password #{node[:mysql][:password]} -u root -p'" + result.stdout + "'"
-
 # 初期パスワードの変更
-execute "change mysql password" do
-  command change_mysql_password_command
+execute "change mysql password test" do
+  command <<-EOH
+PASS=`sudo cat /var/log/mysqld.log | grep password | cut -d ' ' -f 13 | tr -d '\n'`
+mysqladmin password #{node[:mysql][:password]} -u root -p$PASS
+EOH
   not_if  "mysql -u root -p#{node[:mysql][:password]} -e 'SHOW databases;'"
 end
 
