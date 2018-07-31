@@ -3,3 +3,5 @@
 /vendor/
 Gemfile.lock
 .rspec
+nodes/secrets.json
+.env
