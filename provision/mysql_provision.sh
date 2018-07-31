@@ -35,7 +35,6 @@ gem "rake"
 gem "serverspec"
 gem "itamae"
 gem "reversible_cryptography"
-gem "itamae-plugin-resource-encrypted_remote_file"
 gem "dotenv"
 EOS
 
