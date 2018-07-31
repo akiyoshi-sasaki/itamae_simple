@@ -1,8 +1,7 @@
 {
   "mysql": {
     "url": "https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm",
-    "version": "8.*",
-    "password": "Password_0"
+    "version": "8.*"
   },
   "app": {
     "user": "vagrant",
