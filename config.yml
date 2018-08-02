@@ -31,3 +31,10 @@ redis:
     - hostname: "redis-01.adroute.jp"
       lips:
         - "10.10.10.250"
+  provisions:
+    - "/tmp/provision/redis_provision.sh"
+  volumes:
+    - cookbooks:/tmp/cookbooks
+    - roles:/tmp/roles
+    - nodes:/tmp/nodes
+    - provision:/tmp/provision
