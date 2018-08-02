@@ -5,6 +5,13 @@ app:
     - hostname: "api-01"
       lips:
         - "10.10.10.10"
+  provisions:
+    - "/tmp/provision/app_provision.sh"
+  volumes:
+    - cookbooks:/tmp/cookbooks
+    - roles:/tmp/roles
+    - nodes:/tmp/nodes
+    - provision:/tmp/provision
 mysql:
   box: "centos/7"
   hosts:
