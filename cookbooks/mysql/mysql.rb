@@ -2,7 +2,7 @@ require_relative "../setup_secret"
 
 # mysql8インストール
 package node["mysql"]["url"] do
-  not_if "sudo yum repolist enabled | grep 'mysql#{node[:mysql][:version]}-community.*'"
+  not_if "yum repolist enabled | grep 'mysql#{node[:mysql][:version]}-community.*'"
 end
 
 package "mysql-community-server" do
@@ -16,7 +16,7 @@ end
 
 #firewalldの設定
 execute "firewalld mysql" do
-  command "sudo firewall-cmd --add-service=mysql --zone=public --permanent"
+  command "firewall-cmd --add-service=mysql --zone=public --permanent"
 end
 
 execute "firewalld reload" do
@@ -24,9 +24,9 @@ execute "firewalld reload" do
 end
 
 # 初期パスワードの変更
-execute "change mysql password test" do
+execute "change mysql password" do
   command <<-EOH
-PASS=`sudo cat /var/log/mysqld.log | grep password | cut -d ' ' -f 13 | tr -d '\n'`
+PASS=`cat /var/log/mysqld.log | grep password | cut -d ' ' -f 13 | tr -d '\n'`
 mysqladmin password #{secret["mysql_password"]} -u root -p$PASS
 EOH
   not_if  "mysql -u root -p#{secret["mysql_password"]} -e 'SHOW databases;'"
