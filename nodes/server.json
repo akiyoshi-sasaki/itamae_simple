@@ -9,5 +9,10 @@
   },
   "nginx": {
     "fqdn": "example.jp"
+  },
+  "redis": {
+    "url": "http://download.redis.io/releases/redis-4.0.10.tar.gz",
+    "version": "4.0.10",
+    "port": "6379"
   }
 }  
